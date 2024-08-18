@@ -18,11 +18,14 @@
 
         public List<Student> Students { get; set; } = new List<Student>();
         public List<Course> Courses { get; set; } = new List<Course>();
+        public int? FilterAge { get; set; } 
         public string FilterFN { get; set; } = string.Empty;
         public string FilterLN { get; set; } = string.Empty;
         public string FilterPlace { get; set; } = string.Empty;
         public string FilterE { get; set; } = string.Empty;
         public List<string> Places { get; set; } = new List<string>();
         public List<string> Ethnicities { get; set; } = new List<string>();
+
+         
     }
 }

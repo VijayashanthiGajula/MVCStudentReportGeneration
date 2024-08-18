@@ -7,11 +7,16 @@
 
 
 <h1>Students</h1>
+<p>
 
+    Interactive Filtering: Enter your search criteria and click the "Filter" button to view the results.
+    Form Reset: Use the "Reset" button to clear the search criteria and return to the default view.
+    Explore these features to gain valuable insights into student and course data!
+</p>
  
 <form asp-controller="StudentsFilter" asp-action="Index" method="get">
     <div class="form-group">
-        <div class="row"> <label >search</label></div>
+        
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
             <!-- Filter Fields -->
            
@@ -21,7 +26,8 @@
             </div>
             <div class="col">
                 @* <label for="filterLN">Last Name:</label> *@
-                <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" placeholder="Last name" />
+                <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" placeholder="Last name" hidden="true" />
+                <input type="text" id="filterAge" name="filterAge" value="@Model.FilterAge" class="form-control" placeholder="Age" />
             </div>
             <div class="col">
                 @* <label for="filterPlace">Place:</label> *@
@@ -73,7 +79,7 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.Students[0].FirstName)</th>
             <th>@Html.DisplayNameFor(model => model.Students[0].LastName)</th>
-            <th>@Html.DisplayNameFor(model => model.Students[0].DateOfBirth)</th>
+            <th>@Html.DisplayNameFor(model => model.Students[0].Age)</th>
             <th>@Html.DisplayNameFor(model => model.Students[0].Place)</th>
             <th>@Html.DisplayNameFor(model => model.Students[0].Ethnicity)</th>
             <th>@Html.DisplayNameFor(model => model.Students[0].IsDomestic)</th>
@@ -87,7 +93,7 @@
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
                 <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                <td> @item.Age</td>
                 <td>@Html.DisplayFor(modelItem => item.Place)</td>
                 <td>@Html.DisplayFor(modelItem => item.Ethnicity)</td>
                 <td>@Html.DisplayFor(modelItem => item.IsDomestic)</td>

@@ -21,7 +21,7 @@ namespace MVCStudentReportGenaration.Controllers
         }
 
         // GET: StudentsFilter
-        public async Task<IActionResult> Index(string filterFN, string filterLN, string filterPlace, string filterE, string action)
+        public async Task<IActionResult> Index(string filterFN, string filterLN, string filterPlace, string filterE, int? filterAge)
         {
             // Default query
             //var studentsQuery = _context.Students.AsQueryable();
@@ -60,6 +60,13 @@ namespace MVCStudentReportGenaration.Controllers
             { 
                 studentsQuery = studentsQuery.Where(s => s.Place != null && s.Place.Contains(filterPlace ?? string.Empty));
             }
+            if (filterAge.HasValue)
+            {
+                var today = DateTime.Today;
+                var minDateOfBirth = today.AddYears(-filterAge.Value);
+
+                studentsQuery = studentsQuery.Where(s => s.DateOfBirth <= minDateOfBirth);
+            }
 
             var viewModel = new StudentViewModel
             {
@@ -69,6 +76,7 @@ namespace MVCStudentReportGenaration.Controllers
                 FilterLN = filterLN ?? string.Empty,
                 FilterPlace = filterPlace ?? string.Empty,
                 FilterE = filterE ?? string.Empty,
+                FilterAge = filterAge,
                 Places = await _context.Students.Select(s => s.Place).Distinct().ToListAsync() ?? new List<string>(),
                 Ethnicities = await _context.Students.Select(s => s.Ethnicity).Distinct().ToListAsync() ?? new List<string>()
 

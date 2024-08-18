@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace MVCStudentReportGenaration.Models
 {
     public class Student
-    {
+    { 
 
         public int Id { get; set; } // Primary Key
         public string FirstName { get; set; } = string.Empty;
@@ -22,6 +22,15 @@ namespace MVCStudentReportGenaration.Models
         [JsonIgnore]
         public virtual Course? Course { get; set; }
 
-        
+        public int Age
+        {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - DateOfBirth.Year;
+                if (DateOfBirth.Date > today.AddYears(-age)) age--;
+                return age;
+            }
+        }
     }
 }
