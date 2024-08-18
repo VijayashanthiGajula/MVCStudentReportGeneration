@@ -44,19 +44,21 @@ namespace MVCStudentReportGenaration.Controllers
             // Apply filters if they are not null or empty
             if (!string.IsNullOrEmpty(filterFN))
             {
-                studentsQuery = studentsQuery.Where(s => s.FirstName.Contains(filterFN));
+                //studentsQuery = studentsQuery.Where(s => s.FirstName.Contains(filterFN));
+                studentsQuery = studentsQuery.Where(s => s.FirstName != null && s.FirstName.Contains(filterFN ?? string.Empty));
+
             }
             if (!string.IsNullOrEmpty(filterLN))
             {
-                studentsQuery = studentsQuery.Where(s => s.LastName.Contains(filterLN));
+                 
+                studentsQuery = studentsQuery.Where(s => s.LastName != null && s.LastName.Contains(filterLN ?? string.Empty));
             }
             if (!string.IsNullOrEmpty(filterE))
-            {
-                studentsQuery = studentsQuery.Where(s => s.Ethnicity.Contains(filterE));
+            {    studentsQuery = studentsQuery.Where(s => s.Ethnicity != null && s.Ethnicity.Contains(filterE ?? string.Empty));
             }
             if (!string.IsNullOrEmpty(filterPlace))
-            {
-                studentsQuery = studentsQuery.Where(s => s.Place.Contains(filterPlace));
+            { 
+                studentsQuery = studentsQuery.Where(s => s.Place != null && s.Place.Contains(filterPlace ?? string.Empty));
             }
 
             var viewModel = new StudentViewModel

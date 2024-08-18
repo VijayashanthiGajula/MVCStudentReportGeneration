@@ -7,13 +7,13 @@ namespace MVCStudentReportGenaration.Models
     {
 
         public int Id { get; set; } // Primary Key
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Place { get; set; } // E.g., Auckland
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public DateTime DateOfBirth { get; set; } = DateTime.MinValue;
+        public string Place { get; set; } = string.Empty; 
 
-        public string Ethnicity { get; set; }
-        public bool IsDomestic { get; set; } // True for Domestic, False for International
+        public string Ethnicity { get; set; } = string.Empty;
+        public bool IsDomestic { get; set; } = false;
 
         [Required]
         public int CourseId { get; set; } // Foreign Key to the Course
@@ -21,5 +21,7 @@ namespace MVCStudentReportGenaration.Models
         // Navigation Property
         [JsonIgnore]
         public virtual Course? Course { get; set; }
+
+        
     }
 }
