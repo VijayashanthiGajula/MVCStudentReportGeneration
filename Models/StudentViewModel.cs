@@ -10,5 +10,6 @@
         public string FilterE { get; set; }
         public IEnumerable<string> Places { get; set; } // Optional, for dropdown filter
         public IEnumerable<string> Ethnicities { get; set; } // Optional, for dropdown filter
+       // public string CourseName { get; set; } // Add this property
     }
 }

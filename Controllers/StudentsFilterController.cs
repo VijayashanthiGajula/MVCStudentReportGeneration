@@ -13,7 +13,7 @@ namespace MVCStudentReportGenaration.Controllers
     public class StudentsFilterController : Controller
     {
         private readonly StudentDBContext _context;
-        private string action;
+        
 
         public StudentsFilterController(StudentDBContext context)
         {
@@ -21,19 +21,21 @@ namespace MVCStudentReportGenaration.Controllers
         }
 
         // GET: StudentsFilter
-        public async Task<IActionResult> Index(string filterFN,string filterLN, string filterPlace, string filterE)
+        public async Task<IActionResult> Index(string filterFN, string filterLN, string filterPlace, string filterE, string action)
         {
-            //// Check if the Clear button was pressed
-            //if (action == "Clear")
-            //{
-            //    filterFN = null;
-            //    filterLN = null;
-            //    filterPlace = null;
-            //    filterE = null;
-            //}
-
+            // Default query
             var studentsQuery = _context.Students.AsQueryable();
 
+            // Check if the Reset button was pressed
+            if (action == "Reset")
+            {
+                filterFN = null;
+                filterLN = null;
+                filterPlace = null;
+                filterE = null;
+            }
+
+            // Apply filters if they are not null or empty
             if (!string.IsNullOrEmpty(filterFN))
             {
                 studentsQuery = studentsQuery.Where(s => s.FirstName.Contains(filterFN));
@@ -46,7 +48,6 @@ namespace MVCStudentReportGenaration.Controllers
             {
                 studentsQuery = studentsQuery.Where(s => s.Ethnicity.Contains(filterE));
             }
-
             if (!string.IsNullOrEmpty(filterPlace))
             {
                 studentsQuery = studentsQuery.Where(s => s.Place.Contains(filterPlace));
@@ -56,13 +57,13 @@ namespace MVCStudentReportGenaration.Controllers
             {
                 Students = await studentsQuery.ToListAsync(),
                 FilterFN = filterFN,
-                FilterLN = filterLN,               
+                FilterLN = filterLN,
                 FilterPlace = filterPlace,
+                FilterE = filterE,
                 Places = await _context.Students
                     .Select(s => s.Place)
                     .Distinct()
                     .ToListAsync(),
-                FilterE = filterE,
                 Ethnicities = await _context.Students
                     .Select(e => e.Ethnicity)
                     .Distinct()
