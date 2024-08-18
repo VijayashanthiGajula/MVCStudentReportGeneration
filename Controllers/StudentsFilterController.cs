@@ -62,19 +62,14 @@ namespace MVCStudentReportGenaration.Controllers
             var viewModel = new StudentViewModel
             {
                 Students = await studentsQuery.ToListAsync(),
-                Courses = await _context.Courses.ToListAsync(), // Fetch all courses
-                FilterFN = filterFN,
-                FilterLN = filterLN,
-                FilterPlace = filterPlace,
-                FilterE = filterE,
-                Places = await _context.Students
-             .Select(s => s.Place)
-             .Distinct()
-             .ToListAsync(),
-                Ethnicities = await _context.Students
-             .Select(e => e.Ethnicity)
-             .Distinct()
-             .ToListAsync()
+                Courses = await _context.Courses.ToListAsync(), // Fetching all courses
+                FilterFN = filterFN ?? string.Empty,
+                FilterLN = filterLN ?? string.Empty,
+                FilterPlace = filterPlace ?? string.Empty,
+                FilterE = filterE ?? string.Empty,
+                Places = await _context.Students.Select(s => s.Place).Distinct().ToListAsync() ?? new List<string>(),
+                Ethnicities = await _context.Students.Select(s => s.Ethnicity).Distinct().ToListAsync() ?? new List<string>()
+
             };
 
             return View(viewModel);
