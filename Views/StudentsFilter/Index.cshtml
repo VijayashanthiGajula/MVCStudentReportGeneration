@@ -1,0 +1,96 @@
+﻿@* @model IEnumerable<MVCStudentReportGenaration.Models.StudentViewModel> *@
+    @model StudentViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Students</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="StudentsFilter" asp-action="Index" method="get">
+    <div class="form-group">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+            <div class="col">
+                <label for="filterFN">First Name:</label>
+                <input type="text" id="filterFN" name="filterFN" value="@Model.FilterFN" class="form-control " placeholder="First name" />
+            </div>
+            <div class="col">
+                <label for="filterLN">Last Name:</label>
+                <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" />
+            </div>
+            <div class="col">
+                <label for="filterPlace">Place:</label>
+                <select id="filterPlace" name="filterPlace" class="form-control">
+                    <option value="">All</option>
+                    @if (Model.Places != null)
+                    {
+                        foreach (var place in Model.Places)
+                        {
+                            var isSelected = Model.FilterPlace == place ? "selected" : "";
+                            <option value="@place" isSelected>@place</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col">
+                <label for="filterE">Ethnicity:</label>
+                <select id="filterE" name="filterE" class="form-control">
+                    <option value="">All</option>
+                    @if (Model.Ethnicities != null)
+                    {
+                        foreach (var e in Model.Ethnicities)
+                        {
+                            var isSelected = Model.FilterE == e ? "selected" : "";
+                            <option value="@e" isSelected>@e</option>
+                        }
+                    }
+                </select>
+            </div>            
+        </div>
+        <div class="row p-2 d-flex  float-  float-md-end">
+            <div class="col"> <button type="submit" class="btn btn-primary">Filter</button></div>
+        </div>
+    </div>
+
+
+   
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().FirstName)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().LastName)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().DateOfBirth)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().Place)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().Ethnicity)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().IsDomestic)</th>
+            <th>@Html.DisplayNameFor(model => model.Students.FirstOrDefault().Course)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                <td>@Html.DisplayFor(modelItem => item.Place)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ethnicity)</td>
+                <td>@Html.DisplayFor(modelItem => item.IsDomestic)</td>
+                <td>@Html.DisplayFor(modelItem => item.Course.Id)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
