@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCStudentReportGenaration.Migrations
 {
     [DbContext(typeof(StudentDBContext))]
-    [Migration("20240817130327_init")]
-    partial class init
+    [Migration("20240818125527_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
