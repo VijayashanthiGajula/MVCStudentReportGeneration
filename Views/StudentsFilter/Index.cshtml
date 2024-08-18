@@ -21,12 +21,12 @@
             </div>
             <div class="col">
                 <label for="filterLN">Last Name:</label>
-                <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" />
+                <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" placeholder="First name" />
             </div>
             <div class="col">
                 <label for="filterPlace">Place:</label>
                 <select id="filterPlace" name="filterPlace" class="form-control">
-                    <option value="">All</option>
+                    <option value="">Choose</option>
                     @if (Model.Places != null)
                     {
                         foreach (var place in Model.Places)
@@ -40,7 +40,7 @@
             <div class="col">
                 <label for="filterE">Ethnicity:</label>
                 <select id="filterE" name="filterE" class="form-control">
-                    <option value="">All</option>
+                    <option value="">Choose</option>
                     @if (Model.Ethnicities != null)
                     {
                         foreach (var e in Model.Ethnicities)
