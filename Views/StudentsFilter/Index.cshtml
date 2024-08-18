@@ -11,20 +11,22 @@
  
 <form asp-controller="StudentsFilter" asp-action="Index" method="get">
     <div class="form-group">
+        <div class="row"> <label >search</label></div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
             <!-- Filter Fields -->
+           
             <div class="col">
-                <label for="filterFN">First Name:</label>
+                @*<label for="filterFN">First Name:</label>*@
                 <input type="text" id="filterFN" name="filterFN" value="@Model.FilterFN" class="form-control" placeholder="First name" />
             </div>
             <div class="col">
-                <label for="filterLN">Last Name:</label>
+                @* <label for="filterLN">Last Name:</label> *@
                 <input type="text" id="filterLN" name="filterLN" value="@Model.FilterLN" class="form-control" placeholder="Last name" />
             </div>
             <div class="col">
-                <label for="filterPlace">Place:</label>
+                @* <label for="filterPlace">Place:</label> *@
                 <select id="filterPlace" name="filterPlace" class="form-control">
-                    <option value="">Choose...</option>
+                    <option value="">Choose city...</option>
                     @if (Model.Places != null)
                     {
                         foreach (var place in Model.Places)
@@ -37,9 +39,9 @@
                 </select>
             </div>
             <div class="col">
-                <label for="filterE">Ethnicity:</label>
+               @*  <label for="filterE">Ethnicity:</label> *@
                 <select id="filterE" name="filterE" class="form-control">
-                    <option value="">Choose...</option>
+                    <option value="">Choose Ethnicity...</option>
                     @if (Model.Ethnicities != null)
                     {  
                         foreach (var e in Model.Ethnicities)
@@ -57,7 +59,7 @@
             </div>
             <div class="col">
 
-                <a class="nav-link text-dark" asp-area="" asp-controller="StudentsFilter" asp-action="Index">Reset</a>
+                <a class="btn btn-primary" asp-area="" asp-controller="StudentsFilter" asp-action="Index">Reset</a>
                 
                  </div>
         </div>
@@ -88,7 +90,8 @@
                 <td>@Html.DisplayFor(modelItem => item.Place)</td>
                 <td>@Html.DisplayFor(modelItem => item.Ethnicity)</td>
                 <td>@Html.DisplayFor(modelItem => item.IsDomestic)</td>
-                <td>@Html.DisplayFor(modelItem => item.CourseId)</td>
+            @*     <td>@Html.DisplayFor(modelItem => item.CourseName)</td> *@
+                <td>@item.Course.Name</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

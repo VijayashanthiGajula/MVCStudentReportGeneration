@@ -24,16 +24,22 @@ namespace MVCStudentReportGenaration.Controllers
         public async Task<IActionResult> Index(string filterFN, string filterLN, string filterPlace, string filterE, string action)
         {
             // Default query
-            var studentsQuery = _context.Students.AsQueryable();
+            //var studentsQuery = _context.Students.AsQueryable();
+            var studentsQuery = from s in _context.Students
+                                join c in _context.Courses on s.CourseId equals c.Id
+                                select new Student
+                                {
+                                    Id = s.Id,
+                                    FirstName = s.FirstName,
+                                    LastName = s.LastName,
+                                    DateOfBirth = s.DateOfBirth,
+                                    Place = s.Place,
+                                    Ethnicity = s.Ethnicity,
+                                    IsDomestic = s.IsDomestic,
+                                    CourseId = s.CourseId,
+                                    Course = c
+                                };
 
-            // Check if the Reset button was pressed
-            if (action == "Reset")
-            {
-                filterFN = null;
-                filterLN = null;
-                filterPlace = null;
-                filterE = null;
-            }
 
             // Apply filters if they are not null or empty
             if (!string.IsNullOrEmpty(filterFN))
@@ -56,18 +62,19 @@ namespace MVCStudentReportGenaration.Controllers
             var viewModel = new StudentViewModel
             {
                 Students = await studentsQuery.ToListAsync(),
+                Courses = await _context.Courses.ToListAsync(), // Fetch all courses
                 FilterFN = filterFN,
                 FilterLN = filterLN,
                 FilterPlace = filterPlace,
                 FilterE = filterE,
                 Places = await _context.Students
-                    .Select(s => s.Place)
-                    .Distinct()
-                    .ToListAsync(),
+             .Select(s => s.Place)
+             .Distinct()
+             .ToListAsync(),
                 Ethnicities = await _context.Students
-                    .Select(e => e.Ethnicity)
-                    .Distinct()
-                    .ToListAsync()
+             .Select(e => e.Ethnicity)
+             .Distinct()
+             .ToListAsync()
             };
 
             return View(viewModel);
