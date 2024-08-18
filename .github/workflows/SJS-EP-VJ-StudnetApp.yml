@@ -1,10 +1,10 @@
-name: Build and deploy .NET Core application to Web App VJ-StudentReportGenaration
+name: Build and deploy .NET Core application to Web App SJS-EP-VJ-StudnetApp
 on:
   push:
     branches:
     - master
 env:
-  AZURE_WEBAPP_NAME: VJ-StudentReportGenaration
+  AZURE_WEBAPP_NAME: SJS-EP-VJ-StudnetApp
   AZURE_WEBAPP_PACKAGE_PATH: .\published
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
@@ -44,5 +44,5 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.VJ_StudentReportGenaration_DCCC }}
+        publish-profile: ${{ secrets.SJS_EP_VJ_StudnetApp_8AD8 }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
